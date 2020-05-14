@@ -1,6 +1,6 @@
 <?php
 
-namespace Rarst\Meadow;
+namespace McAskill\Meadow;
 
 /**
  * Prepends template hierarchy with Twig versions of templates.

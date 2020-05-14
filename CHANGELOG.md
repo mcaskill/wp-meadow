@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+### Changed
+
+- Renamed namespace from `Rarst` to `McAskill`
+- Renamed packge from `rarst/meadow` to `mcaskill/wp-meadow`
+- Updated package to reflect replacement
+
+## 0.4.0 - TBD
+
 ### Added
 
 - Added `.editorconfig` file to enforce coding standards

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rarst\Meadow;
+namespace McAskill\Meadow;
 
 use Twig_Token;
 

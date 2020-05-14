@@ -1,6 +1,6 @@
 <?php
 
-namespace Rarst\Meadow;
+namespace McAskill\Meadow;
 
 /**
  * Meadow extension for Twig with WordPress specific functionality.

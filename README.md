@@ -1,28 +1,47 @@
-# Meadow — WordPress Templating DSL
+# Meadow — WordPress templating with Twig
 
 _Write WordPress theme templates with familiar ease and modern features._
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Rarst/meadow/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Rarst/meadow/?branch=master)
-[![Version](https://img.shields.io/packagist/v/rarst/meadow.svg?label=version)](https://packagist.org/packages/rarst/meadow)
-[![PHP required](https://img.shields.io/packagist/php-v/rarst/meadow.svg)](https://packagist.org/packages/rarst/meadow)
-[![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
+[![Code Quality][scrutinizer-ci-badge]][scrutinizer-ci.com]
+[![Latest Stable Version][release-badge]][packagist.org]
+[![Software License][license-badge]](LICENSE.md)
 
 Meadow is a theme templating solution, aiming to find a balance between native WordPress concepts and power of [Twig](https://twig.symfony.com/) dedicated templating language.
+
+> `mcaskill/wp-meadow` aims to be a drop-in replacement for `rarst/meadow`. It focuses on keeping Twig up to date and enabling any PSR-11 implementation.
 
 ## Installation
 
 Require package in your theme project with [Composer](https://getcomposer.org/):
 
-```bash
-composer require rarst/meadow
+```console
+composer require mcaskill/wp-meadow
 ```
 
 Instantiate object some time during theme load:
 
 ```php
-$meadow = new \Rarst\Meadow\Core;
+$meadow = new \McAskill\Meadow\Core;
 $meadow->enable();
 ```
+
+## Migrating from Rarst
+
+First, replace `rarst/meadow` with `mcaskill/wp-meadow`:
+
+```console
+composer remove rarst/meadow
+composer require mcaskill/wp-meadow
+```
+
+Afterwards, replace the PHP namespace:
+
+```diff
+- $meadow = new \Rarst\Meadow\Core;
++ $meadow = new \McAskill\Meadow\Core;
+```
+
+At this point your code should mostly work as it did before.
 
 ## Templating
 
@@ -106,7 +125,7 @@ This is primarily achieved by implementing custom Twig tags, abstracting away co
 
 ## Template Examples
 
-In [Hybrid Wing](https://github.com/Rarst/hybrid-wing) theme (work in progress):
+Check out the [Hybrid Wing](https://github.com/Rarst/hybrid-wing) theme for an example of `rarst/meadow`:
 
 - [`index.twig`](https://github.com/Rarst/hybrid-wing/blob/master/index.twig)
 - [`single.twig`](https://github.com/Rarst/hybrid-wing/blob/master/single.twig)
@@ -116,3 +135,10 @@ In [Hybrid Wing](https://github.com/Rarst/hybrid-wing) theme (work in progress):
 ## License
 
 MIT
+
+[scrutinizer-ci-badge]: https://scrutinizer-ci.com/g/mcaskill/wp-meadow/badges/quality-score.png?b=master
+[release-badge]:        https://img.shields.io/github/tag/mcaskill/wp-meadow.svg
+[license-badge]:        https://poser.pugx.org/mcaskill/wp-meadow/license
+
+[scrutinizer-ci.com]:   https://scrutinizer-ci.com/g/mcaskill/wp-meadow/?branch=master
+[packagist.org]:        https://packagist.org/packages/mcaskill/wp-meadow

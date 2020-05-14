@@ -1,18 +1,22 @@
 {
     "type": "library",
-    "name": "rarst/meadow",
-    "description": "WordPress templating DSL",
+    "name": "mcaskill/wp-meadow",
+    "description": "WordPress templating with Twig",
     "keywords": [ "wordpress", "twig" ],
-    "homepage": "https://github.com/Rarst/meadow",
+    "homepage": "https://github.com/mcaskill/wp-meadow",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Chauncey McAskill",
+            "homepage": "https://mcaskill.ca/"
+        },
         {
             "name": "Andrey Savchenko",
             "homepage": "https://www.Rarst.net/"
         }
     ],
     "support": {
-        "issues": "https://github.com/Rarst/meadow/issues"
+        "issues": "https://github.com/mcaskill/wp-meadow/issues"
     },
     "require": {
         "php": ">=7.0",
@@ -24,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rarst\\Meadow\\": "src/"
+            "McAskill\\Meadow\\": "src/"
         }
     },
     "config": {

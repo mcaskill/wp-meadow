@@ -1,6 +1,6 @@
 <?php
 
-namespace Rarst\Meadow;
+namespace McAskill\Meadow;
 
 /**
  * Augment native template hierarchy with non-PHP template processing.
