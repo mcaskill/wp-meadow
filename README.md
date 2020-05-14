@@ -7,7 +7,7 @@ _Write WordPress theme templates with familiar ease and modern features._
 [![PHP required](https://img.shields.io/packagist/php-v/rarst/meadow.svg)](https://packagist.org/packages/rarst/meadow)
 [![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
 
-Meadow is a theme templating solution, aiming to find a balance between native WordPress concepts and power of [Twig](http://twig.sensiolabs.org/) dedicated templating language.
+Meadow is a theme templating solution, aiming to find a balance between native WordPress concepts and power of [Twig](https://twig.symfony.com/) dedicated templating language.
 
 ## Installation
 
@@ -28,9 +28,9 @@ $meadow->enable();
 
 Meadow follows conventions of WordPress [template hierarchy](https://codex.wordpress.org/Template_Hierarchy#Visual_Overview):
 
- - for example `index.php` becomes `index.twig`.
- - `{{ get_header() }}` will look for `header.twig` (with fallback to `header.php`)
- - and so on.
+- for example `index.php` becomes `index.twig`.
+- `{{ get_header() }}` will look for `header.twig` (with fallback to `header.php`)
+- and so on.
 
 ### Template Tags
 
@@ -45,7 +45,7 @@ Template Tags API (and PHP functions in general) are set up to work transparentl
 WordPress filters set up to be available as Twig filters:
 
 ```twig
-{{ 'This is the title'|the_title }}
+{{ 'This is the title' | the_title }}
 ```
 
 ### Template Inheritance
@@ -57,7 +57,7 @@ Full range of Twig functionality is naturally available, including [template inh
 {% extends 'index.twig' %}
 
 {% block entry_title %}
-	<div class="page-header">{{ parent() }}</div>
+    <div class="page-header">{{ parent() }}</div>
 {% endblock %}
 ```
 
@@ -78,8 +78,8 @@ This is primarily achieved by implementing custom Twig tags, abstracting away co
 
 ```twig
 {% loop %}
-	<h2><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
-	{{ the_content() }}
+    <h2><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
+    {{ the_content() }}
 {% endloop %}
 ```
 
@@ -87,8 +87,8 @@ This is primarily achieved by implementing custom Twig tags, abstracting away co
 
 ```twig
 {% loop { 'post_type' : 'book', 'orderby' : 'title' } %} {# expression for arguments #}
-	<h2><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
-	{{ the_content() }}
+    <h2><a href="{{ the_permalink() }}">{{ the_title() }}</a></h2>
+    {{ the_content() }}
 {% endloop %}
 ```
 
@@ -96,11 +96,11 @@ This is primarily achieved by implementing custom Twig tags, abstracting away co
 
 ```twig
 <ul class="comment-list">
-	{% comments %}
-	<li>
-		{{ comment_text() }}
-	{# no </li> - self-closing #}
-	{% endcomments %}
+    {% comments %}
+        <li>
+        {{ comment_text() }}
+        {# no </li> - self-closing #}
+    {% endcomments %}
 </ul>
 ```
 
@@ -108,10 +108,10 @@ This is primarily achieved by implementing custom Twig tags, abstracting away co
 
 In [Hybrid Wing](https://github.com/Rarst/hybrid-wing) theme (work in progress):
 
- - [`index.twig`](https://github.com/Rarst/hybrid-wing/blob/master/index.twig)
-  - [`single.twig`](https://github.com/Rarst/hybrid-wing/blob/master/single.twig)
-   - [`single-post.twig`](https://github.com/Rarst/hybrid-wing/blob/master/single-post.twig)
-  - [`comments.twig`](https://github.com/Rarst/hybrid-wing/blob/master/comments.twig)
+- [`index.twig`](https://github.com/Rarst/hybrid-wing/blob/master/index.twig)
+- [`single.twig`](https://github.com/Rarst/hybrid-wing/blob/master/single.twig)
+- [`single-post.twig`](https://github.com/Rarst/hybrid-wing/blob/master/single-post.twig)
+- [`comments.twig`](https://github.com/Rarst/hybrid-wing/blob/master/comments.twig)
 
 ## License
 
