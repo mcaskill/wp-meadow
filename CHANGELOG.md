@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+### Added
+
+- PHP_CodeSniffer rules to enforce WordPress coding conventions
+
 ### Changed
 
 - Renamed namespace from `Rarst` to `McAskill`

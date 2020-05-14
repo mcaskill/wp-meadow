@@ -11,5 +11,5 @@ trim_trailing_whitespace = true
 [*.{md,twig}]
 trim_trailing_whitespace = false
 
-[*.{json,php,twig}]
+[*.{json,php,twig,xml.dist}]
 indent_size = 4
