@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Renamed packge from `rarst/meadow` to `mcaskill/wp-meadow`
 - Updated package to reflect replacement
 
+### Removed
+
+- Removed `pds/skeleton` as a dev-dependency
+
 ## 0.4.0 - TBD
 
 ### Added
