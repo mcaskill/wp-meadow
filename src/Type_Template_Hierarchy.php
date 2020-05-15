@@ -24,7 +24,6 @@ class Type_Template_Hierarchy {
         'author',
         'date',
         'archive',
-        'commentspopup',
         'paged',
         'index',
     );
