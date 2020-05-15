@@ -16,6 +16,7 @@ class Template_Hierarchy {
         'search',
         'taxonomy',
         'frontpage',
+        'privacypolicy',
         'home',
         'attachment',
         'single',
