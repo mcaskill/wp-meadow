@@ -26,7 +26,6 @@ class Template_Hierarchy {
         'author',
         'date',
         'archive',
-        'paged',
         'index',
     );
 
