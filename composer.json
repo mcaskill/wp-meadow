@@ -18,6 +18,9 @@
     "support": {
         "issues": "https://github.com/mcaskill/wp-meadow/issues"
     },
+    "conflict": {
+        "wordpress/core-implementation": "<4.7"
+    },
     "require": {
         "php": ">=7.0",
         "pimple/pimple": "^3.2.3",
