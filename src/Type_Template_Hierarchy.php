@@ -6,9 +6,8 @@ namespace McAskill\Meadow;
  * Prepends template hierarchy with Twig versions of templates.
  */
 class Type_Template_Hierarchy {
-
     /** @var string[] $template_types Template type names to be used for dynamic hooks. */
-    public $template_types = array(
+    public $template_types = [
         'embed',
         '404',
         'search',
@@ -26,26 +25,24 @@ class Type_Template_Hierarchy {
         'date',
         'archive',
         'index',
-    );
+    ];
 
     /** @var string $type Keep track of last processed template type. */
     protected $type = '';
 
     public function enable() {
-
-        add_filter( 'template_include', array( $this, 'template_include' ), 9 );
+        \add_filter( 'template_include', [ $this, 'template_include' ], 9 );
 
         foreach ( $this->template_types as $type ) {
-            add_filter( "{$type}_template_hierarchy", array( $this, 'template_hierarchy' ) );
+            \add_filter( "{$type}_template_hierarchy", [ $this, 'template_hierarchy' ] );
         }
     }
 
     public function disable() {
-
-        remove_filter( 'template_include', array( $this, 'template_include' ), 9 );
+        \remove_filter( 'template_include', [ $this, 'template_include' ], 9 );
 
         foreach ( $this->template_types as $type ) {
-            remove_filter( "{$type}_template_hierarchy", array( $this, 'template_hierarchy' ) );
+            \remove_filter( "{$type}_template_hierarchy", [ $this, 'template_hierarchy' ] );
         }
     }
 
@@ -55,18 +52,17 @@ class Type_Template_Hierarchy {
      * @return string[] Array of templates, prepended with Twig versions.
      */
     public function template_hierarchy( $templates ) {
-
-        $this->type = substr( current_filter(), 0, - 19 ); // Trim '_template_hierarchy' from end.
+        $this->type = \substr( \current_filter(), 0, -19 ); // Trim '_template_hierarchy' from end.
 
         $twig_templates = [];
 
         foreach ( $templates as $php_template ) {
-            if ( '.php' === substr( $php_template, - 4 ) ) {
-                $twig_templates[] = substr( $php_template, 0, - 4 ) . '.twig';
+            if ( '.php' === \substr( $php_template, -4 ) ) {
+                $twig_templates[] = \substr( $php_template, 0, -4 ) . '.twig';
             }
         }
 
-        return array_merge( $twig_templates, $templates );
+        return \array_merge( $twig_templates, $templates );
     }
 
     /**
@@ -75,7 +71,6 @@ class Type_Template_Hierarchy {
      * @return string
      */
     public function template_include( $template ) {
-
-        return apply_filters( 'meadow_query_template', $template, $this->type );
+        return \apply_filters( 'meadow_query_template', $template, $this->type );
     }
 }

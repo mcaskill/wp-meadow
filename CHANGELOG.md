@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Renamed namespace from `Rarst` to `McAskill`
 - Renamed packge from `rarst/meadow` to `mcaskill/wp-meadow`
 - Updated package to reflect replacement
+- Formatted codebase according to PHP/WPCS
 
 ### Removed
 

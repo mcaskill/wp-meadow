@@ -13,12 +13,11 @@ class Comments_Node extends Twig_Node {
      * @param Twig_Compiler $compiler
      */
     public function compile( Twig_Compiler $compiler ) {
-
         $compiler
             ->addDebugInfo( $this )
-            ->write( '$callback = function() {' )
+            ->write( '$callback = function () {' )
             ->subcompile( $this->getNode( 'callback' ) )
             ->write( '};' )
-            ->write( 'wp_list_comments( array( \'callback\' => $callback ) );' );
+            ->write( '\\wp_list_comments( [ \'callback\' => $callback ] );' );
     }
 }

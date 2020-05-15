@@ -5,7 +5,6 @@ namespace McAskill\Meadow;
 use Twig_Token;
 
 class Loop_Token_Parser extends \Twig_TokenParser {
-
     /**
      * Parses a token and returns a node.
      *
@@ -14,8 +13,7 @@ class Loop_Token_Parser extends \Twig_TokenParser {
      * @return Loop_Node
      */
     public function parse( Twig_Token $token ) {
-
-        $nodes  = array();
+        $nodes  = [];
         $parser = $this->parser;
         $stream = $parser->getStream();
 
@@ -24,17 +22,16 @@ class Loop_Token_Parser extends \Twig_TokenParser {
         }
 
         $stream->expect( Twig_Token::BLOCK_END_TYPE );
-        $nodes['body'] = $parser->subparse( array( $this, 'decide_loop_end' ), true );
+        $nodes['body'] = $parser->subparse( [ $this, 'decide_loop_end' ], true );
         $stream->expect( Twig_Token::BLOCK_END_TYPE );
 
-        return new Loop_Node( $nodes, array(), $token->getLine(), $this->getTag() );
+        return new Loop_Node( $nodes, [], $token->getLine(), $this->getTag() );
     }
 
     /**
      * @return string
      */
     public function getTag() {
-
         return 'loop';
     }
 

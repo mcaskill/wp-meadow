@@ -5,7 +5,6 @@ namespace McAskill\Meadow;
 use Twig_Token;
 
 class Comments_Token_Parser extends \Twig_TokenParser {
-
     /**
      * Parses a token and returns a node.
      *
@@ -14,23 +13,21 @@ class Comments_Token_Parser extends \Twig_TokenParser {
      * @return Comments_Node
      */
     public function parse( Twig_Token $token ) {
-
-        $nodes  = array();
+        $nodes  = [];
         $parser = $this->parser;
         $stream = $parser->getStream();
 
         $stream->expect( Twig_Token::BLOCK_END_TYPE );
-        $nodes['callback'] = $parser->subparse( array( $this, 'decide_comments_end' ), true );
+        $nodes['callback'] = $parser->subparse( [ $this, 'decide_comments_end' ], true );
         $stream->expect( Twig_Token::BLOCK_END_TYPE );
 
-        return new Comments_Node( $nodes, array(), $token->getLine(), $this->getTag() );
+        return new Comments_Node( $nodes, [], $token->getLine(), $this->getTag() );
     }
 
     /**
      * @return string
      */
     public function getTag() {
-
         return 'comments';
     }
 

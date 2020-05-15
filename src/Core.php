@@ -8,12 +8,10 @@ use Pimple\Container;
  * Main plugin class.
  */
 class Core extends Container {
-
     /**
      * @param array $values Optional array of services/options.
      */
-    public function __construct( $values = array() ) {
-
+    public function __construct( $values = [] ) {
         global $wp_version;
 
         $defaults                     = [];
@@ -22,22 +20,21 @@ class Core extends Container {
 
         // This needs to be lazy or theme switchers and alike explode it.
         $defaults['twig.loader'] = function ( $meadow ) {
-
-            $stylesheet_dir  = get_stylesheet_directory();
-            $template_dir    = get_template_directory();
-            $calculated_dirs = array(
+            $stylesheet_dir  = \get_stylesheet_directory();
+            $template_dir    = \get_template_directory();
+            $calculated_dirs = [
                 $stylesheet_dir,
                 $template_dir,
-                plugin_dir_path( __DIR__ ) . 'src/twig',
-            );
+                \plugin_dir_path( __DIR__ ) . 'src/twig',
+            ];
 
             // Enables explicit inheritance from parent theme in child.
             if ( $stylesheet_dir !== $template_dir ) {
                 $calculated_dirs[] = \dirname( $template_dir );
             }
 
-            $directories = array_unique(
-                array_merge(
+            $directories = \array_unique(
+                \array_merge(
                     $calculated_dirs,
                     $meadow['twig.directories']
                 )
@@ -46,8 +43,8 @@ class Core extends Container {
             return new \Twig_Loader_Filesystem( $directories );
         };
 
-        $defaults['twig.undefined_function'] = array( __CLASS__, 'undefined_function' );
-        $defaults['twig.undefined_filter']   = array( __CLASS__, 'undefined_filter' );
+        $defaults['twig.undefined_function'] = [ $this, 'undefined_function' ];
+        $defaults['twig.undefined_filter']   = [ $this, 'undefined_filter' ];
 
         $defaults['twig.environment'] = function ( $meadow ) {
             $environment      = new \Twig_Environment( $meadow['twig.loader'], $meadow['twig.options'] );
@@ -65,14 +62,12 @@ class Core extends Container {
             return $environment;
         };
 
-        if ( version_compare( rtrim( $wp_version, '-src' ), '4.7', '>=' ) ) {
-
+        if ( \version_compare( \rtrim( $wp_version, '-src' ), '4.7', '>=' ) ) {
             $defaults['hierarchy'] = function () {
                 return new Type_Template_Hierarchy();
             };
         } else {
-
-            trigger_error( 'Pre–WP 4.7 implementation of Meadow hierarchy is deprecated and will be removed in 1.0.', E_USER_DEPRECATED );
+            \trigger_error( 'Pre–WP 4.7 implementation of Meadow hierarchy is deprecated and will be removed in 1.0.', E_USER_DEPRECATED );
 
             $defaults['hierarchy'] = function () {
                 /** @noinspection PhpDeprecationInspection */
@@ -80,7 +75,7 @@ class Core extends Container {
             };
         }
 
-        parent::__construct( array_merge( $defaults, $values ) );
+        parent::__construct( \array_merge( $defaults, $values ) );
     }
 
     /**
@@ -91,19 +86,17 @@ class Core extends Container {
      * @return bool|\Twig_Function
      */
     public static function undefined_function( $function_name ) {
-
         if ( \function_exists( $function_name ) ) {
             return new \Twig_Function(
                 $function_name,
                 function () use ( $function_name ) {
+                    \ob_start();
+                    $return = $function_name( ...\func_get_args() );
+                    $echo   = \ob_get_clean();
 
-                    ob_start();
-                    $return = \call_user_func_array( $function_name, \func_get_args() );
-                    $echo   = ob_get_clean();
-
-                    return empty( $echo ) ? $return : $echo;
+                    return \empty( $echo ) ? $return : $echo;
                 },
-                array( 'is_safe' => array( 'all' ) )
+                [ 'is_safe' => [ 'all' ] ]
             );
         }
 
@@ -118,33 +111,29 @@ class Core extends Container {
      * @return bool|\Twig_Filter
      */
     public static function undefined_filter( $filter_name ) {
-
         return new \Twig_Filter(
             $filter_name,
             function () use ( $filter_name ) {
-
-                return apply_filters( $filter_name, func_get_arg( 0 ) );
+                return \apply_filters( $filter_name, \func_get_arg( 0 ) );
             },
-            array( 'is_safe' => array( 'all' ) )
+            [ 'is_safe' => [ 'all' ] ]
         );
     }
 
     public function enable() {
-
         /** @var Template_Hierarchy $hierarchy */
         $hierarchy = $this['hierarchy'];
         $hierarchy->enable();
-        add_filter( 'template_include', [ $this, 'template_include' ], 100 );
-        add_filter( 'get_search_form', array( $this, 'get_search_form' ), 9 );
+        \add_filter( 'template_include', [ $this, 'template_include' ], 100 );
+        \add_filter( 'get_search_form', [ $this, 'get_search_form' ], 9 );
     }
 
     public function disable() {
-
         /** @var Template_Hierarchy $hierarchy */
         $hierarchy = $this['hierarchy'];
         $hierarchy->disable();
-        remove_filter( 'template_include', [ $this, 'template_include' ], 100 );
-        remove_filter( 'get_search_form', array( $this, 'get_search_form' ), 9 );
+        \remove_filter( 'template_include', [ $this, 'template_include' ], 100 );
+        \remove_filter( 'get_search_form', [ $this, 'get_search_form' ], 9 );
     }
 
     /**
@@ -153,14 +142,13 @@ class Core extends Container {
      * @return string|bool
      */
     public function template_include( $template ) {
-
-        if ( '.twig' === substr( $template, - 5 ) ) {
+        if ( '.twig' === \substr( $template, -5 ) ) {
             /** @var \Twig_Environment $twig */
             $twig = $this['twig.environment'];
 
-            echo $twig->render( basename( $template ), apply_filters( 'meadow_context', array() ) );
+            echo $twig->render( \basename( $template ), \apply_filters( 'meadow_context', [] ) );
 
-            die();
+            exit;
         }
 
         return $template;
@@ -172,9 +160,8 @@ class Core extends Container {
      * @return string
      */
     public function get_search_form( $form ) {
-
         // Because first time it's an action.
-        if ( ! empty( $form ) ) {
+        if ( ! \empty( $form ) ) {
             /** @var \Twig_Environment $twig */
             $twig = $this['twig.environment'];
 
